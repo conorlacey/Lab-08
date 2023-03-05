@@ -39,3 +39,23 @@ skim(uoe_art)
 There are 115 pieces with artist info missing
 
 ### Exercise 12
+
+```{r year-plot}
+uoe_art %>% ggplot(aes(x = year)) +
+  geom_histogram()
+```
+
+Strange. There it appears there a piece of art that was created around the time Christ was born. Well, clearly this must be an issue. Let's go take a look. 
+
+### Exercise 13
+
+```{r problem-child}
+uoe_art %>% filter(year <  500)
+```
+
+When we go to this artwork's page we find that it was actualy done in 1964. Let's fix this. 
+
+```{r fixing-Death-Mask}
+uoe_art <- uoe_art %>% mutate(year = case_when(year == 2 ~ 1964))
+```
+
