@@ -58,15 +58,6 @@ uoe_art <- tibble(title = titles,
 uoe_art
 ```
 
-
-
-
-
-
-
-
-
-
 ```{r load-data, message = FALSE, eval = FALSE}
 # Remove eval = FALSE or set it to TRUE once data is ready to be loaded
 uoe_art <- read_csv("data/uoe-art.csv")
