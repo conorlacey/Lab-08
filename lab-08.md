@@ -13,6 +13,10 @@ library(skimr)
 
     ## Warning: package 'skimr' was built under R version 4.1.2
 
+``` r
+library(glue)
+```
+
 ### Exercise 1
 
 ``` r
@@ -192,18 +196,41 @@ scrape_page(second_url)
     ##  9 3,500 Men (May 1986)                              Andrew Arnott       https:…
     ## 10 Portrait of a Man (1957)                          Unknown             https:…
 
+### Exercise 7
+
+``` r
+# list of urls to be scraped ---------------------------------------------------
+
+root <- "https://collections.ed.ac.uk/art/search/*:*/Collection:%22edinburgh+college+of+art%7C%7C%7CEdinburgh+College+of+Art%22?offset="
+numbers <- seq(from = 0, to = 3010, by = 10)
+urls <- glue("{root}{numbers}")
+
+# map over all urls and output a data frame ------------------------------------
+
+uoe_art <- map_dfr(urls, scrape_page)
+```
+
+### Exercise 8
+
+``` r
+# write out data frame ---------------------------------------------------------
+write_csv(uoe_art, file = "data/uoe-art.csv")
+```
+
 ### Exercise 9
 
 ``` r
+
+
 uoe_art <- uoe_art %>%
   separate(title, into = c("title", "date"), sep = "\\(") %>%
   mutate(year = str_remove(date, "\\)") %>% as.numeric()) %>%
   select(title, artist, year, ___)
 ```
 
-    ## Error: <text>:4:31: unexpected input
-    ## 3:   mutate(year = str_remove(date, "\\)") %>% as.numeric()) %>%
-    ## 4:   select(title, artist, year, _
+    ## Error: <text>:6:31: unexpected input
+    ## 5:   mutate(year = str_remove(date, "\\)") %>% as.numeric()) %>%
+    ## 6:   select(title, artist, year, _
     ##                                  ^
 
 ### Exercise 10

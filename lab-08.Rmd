@@ -11,6 +11,7 @@ output: github_document
 suppressWarnings(library(tidyverse))
 library(rvest)
 library(skimr)
+library(glue)
 ```
 
 
@@ -134,11 +135,31 @@ scrape_page(first_url)
 scrape_page(second_url)
 ```
 
+### Exercise 7
 
+```{r URLs}
+# list of urls to be scraped ---------------------------------------------------
+
+root <- "https://collections.ed.ac.uk/art/search/*:*/Collection:%22edinburgh+college+of+art%7C%7C%7CEdinburgh+College+of+Art%22?offset="
+numbers <- seq(from = 0, to = 3010, by = 10)
+urls <- glue("{root}{numbers}")
+
+# map over all urls and output a data frame ------------------------------------
+
+uoe_art <- map_dfr(urls, scrape_page)
+```
+
+### Exercise 8
+```{r write-data-frame}
+# write out data frame ---------------------------------------------------------
+write_csv(uoe_art, file = "data/uoe-art.csv")
+```
 
 ### Exercise 9
 
 ```{r separate-title-date, error = TRUE}
+
+
 uoe_art <- uoe_art %>%
   separate(title, into = c("title", "date"), sep = "\\(") %>%
   mutate(year = str_remove(date, "\\)") %>% as.numeric()) %>%
