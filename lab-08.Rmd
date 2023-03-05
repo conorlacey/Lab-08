@@ -42,6 +42,31 @@ links <- page %>%
 
 ### Exercise 2
 
+```{r Names}
+names <- page %>% 
+  html_nodes(".iteminfo") %>% 
+  html_node(".artist") %>% 
+  html_attr("title")
+```
+
+### Exercise 3
+
+```{r uoe_art}
+uoe_art <- tibble(title = titles, 
+                  name = names,
+                  link = links)
+uoe_art
+```
+
+
+
+
+
+
+
+
+
+
 ```{r load-data, message = FALSE, eval = FALSE}
 # Remove eval = FALSE or set it to TRUE once data is ready to be loaded
 uoe_art <- read_csv("data/uoe-art.csv")
