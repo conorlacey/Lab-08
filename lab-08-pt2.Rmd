@@ -1,0 +1,32 @@
+---
+title: "lab-08 pt.2"
+author: "Conor Lacey"
+date: '2023-03-05'
+output: html_document
+---
+
+```{r library}
+suppressWarnings(library(tidyverse))
+```
+
+
+### Introduction
+
+I made a separate markdown document so that I didn't have to wait 3 minutes every time I wanted to load my knitted document.
+
+### Exercise 10
+
+```{r load-data}
+uoe_art <- read_csv("data/uoe-art.csv")
+```
+
+```{r separate-title-date, error = TRUE}
+uoe_art <- uoe_art %>%
+  separate(title, into = c("title", "date"), sep = "\\(") %>%
+  mutate(year = str_remove(date, "\\)") %>% as.numeric()) %>%
+  select(title, name, year, link)
+```
+
+Yes we have some warnings, because some titles don't have a year in parenthesis! As a result, we will an NA in quite a few rows for the year column.
+
+

@@ -135,6 +135,7 @@ scrape_page(first_url)
 scrape_page(second_url)
 ```
 
+
 ### Exercise 7
 
 ```{r URLs}
@@ -145,36 +146,17 @@ numbers <- seq(from = 0, to = 3010, by = 10)
 urls <- glue("{root}{numbers}")
 
 # map over all urls and output a data frame ------------------------------------
-
-uoe_art <- map_dfr(urls, scrape_page)
 ```
 
-### Exercise 8
-```{r write-data-frame}
-# write out data frame ---------------------------------------------------------
-write_csv(uoe_art, file = "data/uoe-art.csv")
+Exercise 8
+
+```{r uoe_art-dataframe}
+uoe_art <- map_dfr(urls, scrape_page)
 ```
 
 ### Exercise 9
 
-```{r separate-title-date, error = TRUE}
-
-
-uoe_art <- uoe_art %>%
-  separate(title, into = c("title", "date"), sep = "\\(") %>%
-  mutate(year = str_remove(date, "\\)") %>% as.numeric()) %>%
-  select(title, artist, year, ___)
+```{r write-dataframe}
+# write out data frame ---------------------------------------------------------
+write_csv(uoe_art, file = "data/uoe-art.csv")
 ```
-
-### Exercise 10
-
-Remove this text, and add your answer for Exercise 10 here.
-Add code chunks as needed.
-Don't forget to label your code chunk.
-Do not use spaces in code chunk labels.
-
-### Exercise 11
-
-...
-
-Add exercise headings as needed.
