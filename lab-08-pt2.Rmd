@@ -27,6 +27,6 @@ uoe_art <- uoe_art %>%
   select(title, name, year, link)
 ```
 
-Yes we have some warnings, because some titles don't have a year in parenthesis! As a result, we will an NA in quite a few rows for the year column.
+Yes we have some warnings, because some titles don't have a year in parenthesis! As a result, we will have an NA in quite a few rows for the year column.
 
 

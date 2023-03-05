@@ -357,19 +357,43 @@ display: none;
 </div>
 
 
-<div id="i-made" class="section level4">
-<h4>I made</h4>
+<pre class="r"><code>suppressWarnings(library(tidyverse))</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+## ✔ ggplot2 3.4.0     ✔ purrr   0.3.4
+## ✔ tibble  3.1.8     ✔ dplyr   1.0.8
+## ✔ tidyr   1.1.4     ✔ stringr 1.4.0
+## ✔ readr   2.1.3     ✔ forcats 0.5.1
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<div id="introduction" class="section level3">
+<h3>Introduction</h3>
+<p>I made a separate markdown document so that I didn’t have to wait 3
+minutes every time I wanted to load my knitted document.</p>
 </div>
 <div id="exercise-10" class="section level3">
 <h3>Exercise 10</h3>
+<pre class="r"><code>uoe_art &lt;- read_csv(&quot;data/uoe-art.csv&quot;)</code></pre>
+<pre><code>## Rows: 3017 Columns: 3
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (3): title, name, link
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>uoe_art &lt;- uoe_art %&gt;%
   separate(title, into = c(&quot;title&quot;, &quot;date&quot;), sep = &quot;\\(&quot;) %&gt;%
   mutate(year = str_remove(date, &quot;\\)&quot;) %&gt;% as.numeric()) %&gt;%
-  select(title, artist, year, ___)</code></pre>
-<pre><code>## Error: &lt;text&gt;:4:31: unexpected input
-## 3:   mutate(year = str_remove(date, &quot;\\)&quot;) %&gt;% as.numeric()) %&gt;%
-## 4:   select(title, artist, year, _
-##                                  ^</code></pre>
+  select(title, name, year, link)</code></pre>
+<pre><code>## Warning: Expected 2 pieces. Additional pieces discarded in 39 rows [121, 179,
+## 292, 323, 460, 466, 510, 536, 556, 601, 666, 758, 830, 1085, 1171, 1368, 1397,
+## 1737, 1762, 1865, ...].</code></pre>
+<pre><code>## Warning: Expected 2 pieces. Missing pieces filled with `NA` in 650 rows [2, 10,
+## 12, 13, 18, 21, 25, 27, 31, 32, 37, 42, 44, 68, 73, 87, 94, 97, 106, 107, ...].</code></pre>
+<pre><code>## Warning in str_remove(date, &quot;\\)&quot;) %&gt;% as.numeric(): NAs introduced by coercion</code></pre>
+<p>Yes we have some warnings, because some titles don’t have a year in
+parenthesis! As a result, we will have an NA in quite a few rows for the
+year column.</p>
 </div>
 
 
