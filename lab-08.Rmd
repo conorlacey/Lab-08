@@ -8,9 +8,39 @@ output: github_document
 ### Load packages and data
 
 ```{r load-packages, message = FALSE}
-library(tidyverse) 
+suppressWarnings(library(tidyverse))
+library(rvest)
 library(skimr)
 ```
+
+
+### Exercise 1
+
+```{r first_url}
+# set url
+first_url <- "https://collections.ed.ac.uk/art/search/*:*/Collection:%22edinburgh+college+of+art%7C%7C%7CEdinburgh+College+of+Art%22?offset=0"
+
+# read html page
+page <- read_html(first_url)
+```
+
+```{r titles}
+titles <- page %>%
+  html_nodes(".iteminfo") %>%
+  html_node("h3 a") %>%
+  html_text() %>% 
+  str_squish()
+```
+
+```{r Links}
+links <- page %>%
+  html_nodes(".iteminfo") %>%   # same nodes
+  html_node("h3 a") %>%         # as before
+  html_attr("href") %>%         # but get href attribute instead of text
+  str_replace(pattern =".", replacement = "https://collections.ed.ac.uk") #replacing
+```
+
+### Exercise 2
 
 ```{r load-data, message = FALSE, eval = FALSE}
 # Remove eval = FALSE or set it to TRUE once data is ready to be loaded
