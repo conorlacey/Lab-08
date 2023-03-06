@@ -556,11 +556,17 @@ year column.</p>
 <p>Strange. There it appears there a piece of art that was created
 around the time Christ was born. Well, clearly this must be an issue.
 Let’s go take a look.</p>
+</div>
+<div id="exercise-13" class="section level3">
+<h3>Exercise 13</h3>
 <pre class="r"><code>uoe_art %&gt;% filter(year &lt;  500)</code></pre>
 <pre><code>## # A tibble: 1 × 4
 ##   title         name          year link                                         
 ##   &lt;chr&gt;         &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;                                        
 ## 1 &quot;Death Mask &quot; H. Dempshall     2 https://collections.ed.ac.uk/record/21649?hi…</code></pre>
+<p>When we go to this artwork’s page we find that it was actualy done in
+1964. Let’s fix this.</p>
+<pre class="r"><code>uoe_art &lt;- uoe_art %&gt;% mutate(year = case_when(year == 2 ~ 1964))</code></pre>
 </div>
 
 

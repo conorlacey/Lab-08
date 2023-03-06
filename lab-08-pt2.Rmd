@@ -53,9 +53,17 @@ Strange. There it appears there a piece of art that was created around the time 
 uoe_art %>% filter(year <  500)
 ```
 
-When we go to this artwork's page we find that it was actualy done in 1964. Let's fix this. 
+When we go to this artwork's page we find that it was actually done in 1964. Let's fix this. 
 
 ```{r fixing-Death-Mask}
 uoe_art <- uoe_art %>% mutate(year = case_when(year == 2 ~ 1964))
 ```
+
+### Exercise 14
+
+```{r commonly featured artist}
+uoe_art %>% count(name) %>% arrange(desc(n)) %>% head(10)
+```
+
+It appears most of their pieces are by Emma Gillies. I have no idea who this is because I'm a quant psych shut-in. It looks like, from a quick Wiki search, that she is famous for her Art Deco style? Sure! If anything this just reflects my knowledge of the art world and how uncultured I am.   
 
