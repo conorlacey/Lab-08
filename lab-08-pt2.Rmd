@@ -42,7 +42,7 @@ There are 115 pieces with artist info missing
 
 ```{r year-plot}
 uoe_art %>% ggplot(aes(x = year)) +
-  geom_histogram()
+  geom_histogram(color = "white")
 ```
 
 Strange. There it appears there a piece of art that was created around the time Christ was born. Well, clearly this must be an issue. Let's go take a look. 
@@ -56,7 +56,11 @@ uoe_art %>% filter(year <  500)
 When we go to this artwork's page we find that it was actually done in 1964. Let's fix this. 
 
 ```{r fixing-Death-Mask}
-uoe_art <- uoe_art %>% mutate(year = case_when(year == 2 ~ 1964))
+uoe_art<-uoe_art %>% mutate(year = if_else(year == 2, 1964, year)
+                              )
+
+uoe_art %>% ggplot(aes(x = year)) +
+  geom_histogram(color = "white")
 ```
 
 ### Exercise 14
@@ -67,3 +71,9 @@ uoe_art %>% count(name) %>% arrange(desc(n)) %>% head(10)
 
 It appears most of their pieces are by Emma Gillies. I have no idea who this is because I'm a quant psych shut-in. It looks like, from a quick Wiki search, that she is famous for her Art Deco style? Sure! If anything this just reflects my knowledge of the art world and how uncultured I am.   
 
+### Exercise 15
+```{r child}
+uoe_art %>% filter(str_detect(uoe_art$title,"child") | str_detect(uoe_art$title,"Child")) %>% nrow()
+```
+
+It appears there are 11 pieces that contain the word "child" or "Child".
